@@ -1,0 +1,6 @@
+FROM jekewa/b2evolution
+
+LABEL maintainer="jeff@swbyjeff.com"
+LABEL description="Unmodified b2evolution.net software on minimal Apache HTTPD for blogging, with Let's Encrypt SSL"
+
+RUN a2ensite b2evolution-ssl
