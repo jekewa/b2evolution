@@ -21,7 +21,7 @@ jobs:
         images: |
           jekewa/b2evolution
         tags: |
-          type=semver,pattern={{major}}.{{minor}}
+          type=semver,pattern={{version}}
       
     - name: Docker meta SSL
       id: meta_ssl
@@ -32,7 +32,7 @@ jobs:
         flavor: |
           prefix=ssl-,onlatest=true
         tags: |
-          type=semver,pattern={{major}}.{{minor}}
+          type=semver,pattern={{version}}
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
