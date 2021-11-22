@@ -14,9 +14,6 @@ The source for building the container should be found at https://github.com/jeke
 The container should be available on the Docker Hub at https://hub.docker.com/repository/docker/jekewa/b2evolution. 
 This allows loading as `jekewa/b2evolution` if the Docker Hub repository is used (which it is normally by default).
 
-The container should be available on the GithHub Repository at https://ghcr.io/repository/docker/jekewa/b2evolution. 
-This allows loading as `ghcr.io/jekewa/b2evoluion`.
-
 The SSL with Let's Encrypt is also built and available at both of those locations.
 This will come with the additional Apache VirtualHost configuration for accepting SSL sockets, and configuring the certificates.
 This is discussed below.
