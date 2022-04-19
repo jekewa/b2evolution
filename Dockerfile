@@ -36,6 +36,12 @@ COPY plugins /opt/b2evolution/plugins
 
 RUN chmod -R go+w /opt/b2evolution/_cache /opt/b2evolution/media && chown -R www-data:www-data /opt/b2evolution
 
+# Default upgrade policy
+COPY b2evolution/conf/upgrade_policy_sample.conf opt/b2evolution/conf/upgrade_policy.conf
+
+# Run scheduled maintenance (every minute by default)
+COPY b2evolution.cron /etc/cron.d/
+
 # Configure Apache
 COPY sites-available /etc/apache2/sites-available
 
