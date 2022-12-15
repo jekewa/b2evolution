@@ -24,7 +24,7 @@ if( !defined('EVO_CONFIG_LOADED') ) die( 'Please, do not access this page direct
 
 // TODO: dh> this file was meant to be used for things where you only need the basic config..
 // fp> also:
-// - At least _admin.php should only be called when in the backoffice.
+// - At least evoadm.php should only be called when in the backoffice.
 // - Also we should probably start by moving as many conf options to the backoffice as possible and see how much stuff is left in conf files
 //    Note: some stuff does not make sense in the back-office (for example stuff that depends on the physical path where the files are installed)
 // - In view of reorganization, please list (all or examples) of situations where only a subset of the conf should be loaded.
@@ -70,14 +70,19 @@ $tableprefix = 'evo_';
 
 
 /**
- * If you want to be able to reset your existing b2evolution tables and start anew
- * you must set $allow_evodb_reset to 1.
+ * If you want to be able to reset your existing b2evolution tables and start anew,
+ * set $allow_evodb_reset to 1 or 2.
+ *
+ * $allow_evodb_reset = 1; will give you an option to delete the DB in the install menu.
+ * $allow_evodb_reset = 2; will allow you do auto-delete if you try to install again.
+ * Use option 2 only on developer installs where there is no chance to lose important data,
+ * not even important test data.
  *
  * NEVER LEAVE THIS SETTING ON ANYTHING ELSE THAN 0 (ZERO) ON A PRODUCTION SERVER.
- * IF THIS IS ON (1) AND YOU FORGET TO DELETE THE INSTALL FOLDER, ANYONE WOULD BE ABLE TO
- * ERASE YOUR B2EVOLUTION TABLES AND DATA BY A SINGLE CLICK!
+ * IF THIS IS ON (1 or 2) AND YOU FORGET TO DELETE THE INSTALL FOLDER, ANYONE WOULD BE ABLE
+ * TO ERASE YOUR B2EVOLUTION TABLES AND DATA BY A SINGLE CLICK!
  */
-$allow_evodb_reset = 0;	// Set to 1 to enable. Do not leave this on 1 on production servers
+$allow_evodb_reset = 0;	// Set to 1 or 2 to enable. LEAVE this at 0 on production servers!
 
 
 /**
@@ -90,9 +95,19 @@ $allow_evodb_reset = 0;	// Set to 1 to enable. Do not leave this on 1 on product
 
 
 /**
+ * If you are a developer and you are making repeated installs of b2evolution, you might want to
+ * automatically force the install of the .htaccess file that matches the current version without
+ * requiring an extra confirmation.
+ *
+ * DO THIS ON DEVELOPMENT MACHINES ONLY! MAY BE DANGEROUS ON A PRODUCTION SERVER!
+ */
+// $htaccess = 'force';
+
+
+/**
  * $baseurl is where your blogs reside by default. CHECK THIS CAREFULLY or nothing will work.
  * It should be set to the URL where you can find the blog templates and/or the blog stub files,
- * that means index.php, blog1.php, blog2.php, etc. as well as admin.php.
+ * that means index.php, blog1.php, blog2.php, etc. as well as evoadm.php.
  * Note: Blogs can be in subdirectories of the baseurl. However, no blog should be outside
  * of there, or some tricky things may fail (including intempestive logouts)
  *
@@ -105,15 +120,24 @@ $allow_evodb_reset = 0;	// Set to 1 to enable. Do not leave this on 1 on product
  * @global string $baseurl
  */
 $baseurl = getenv('BASE_URL'); 
-
 // Use the following if you want to use the current domain:
 /*
 if( isset($_SERVER['HTTP_HOST']) )
-{	// This only works if HOSt provided by webserver (i-e DOES NOT WORK IN PHP CLI MODE)
+{	// This only works if HOST is provided by webserver (i-e DOES NOT WORK IN PHP CLI MODE)
 	$baseurl = ( (isset($_SERVER['HTTPS']) && ( $_SERVER['HTTPS'] != 'off' ) ) ?'https://':'http://')
 							.$_SERVER['HTTP_HOST'].'/';
 }
 */
+
+
+/**
+ * $assets_baseurl could be used to load assets from a different domain, like a cookie-less domain or a CDN.
+ * Assets can be all kinds of static contents: CSS, JS, media images, skin specific CSS, etc.
+ *
+ * @global string $assets_baseurl
+ */
+$assets_baseurl = $baseurl;
+
 
 /**
  * This is used to create the Admin and the demo accounts at install time (not used after install).
