@@ -147,7 +147,7 @@ The container is built with an optional site using an externally managed Let's E
 This could be something the host does, or perhaps a Let's Encrypt Docker container, with a volume mounted. In a simple discussion, use certbot to create and maintain certificates, including at least the one for CERTNAME, as used in the required variables.
 
 As configured, it's expecting the full-chain PEM file and related key-file to be accessible in a subfolder in the mounted (not in the container) /etc/letsencrypt folder. 
-This is because the /etc/letsencrypt "live" path folders eventually a symlink to a paOptimized kernel for cloud use at scalerent folder with an archive of the most recent set of PEM files, selecting the current to use as the live one. 
+This is because the /etc/letsencrypt "live" path folders eventually a symlink to a parent folder with an archive of the most recent set of PEM files, selecting the current to use as the live one. 
 Using Let's Encrypt, assuming the files are accessible on the Docker host, mount the folder with  path volume such as this:
 
 ```
